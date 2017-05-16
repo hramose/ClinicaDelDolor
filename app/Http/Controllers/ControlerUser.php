@@ -50,7 +50,7 @@ class ControlerUser extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        //dd($request);
         $this->validate($request,[
             'name' => 'required|max:255',
             'carnet' => 'required|max:255|unique:users',
@@ -65,7 +65,7 @@ class ControlerUser extends Controller
         $user->departamento_id = $request->departamento_id;
         $user->tipo_usuario = $request->tipo_usuario;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         if ($request->tipo_usuario == 'Administrador') {
             $user->especialidad_id = null;
             $user->turno_id = null;
@@ -107,6 +107,16 @@ class ControlerUser extends Controller
         return view('usuarios.edit',['user' => $user , 'departamentos' => $departamentos , 'turnos' => $turnos , 'especialidades' => $especialidades]);
     }
 
+
+    public function updatepassview($id)
+    {
+        $user = User::findOrFail($id);
+        $departamentos = Departamento::all();
+        $turnos = Turno::all();
+        $especialidades = Especialidad::all();
+        return view('usuarios.password',['user' => $user , 'departamentos' => $departamentos , 'turnos' => $turnos , 'especialidades' => $especialidades]);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -143,6 +153,17 @@ class ControlerUser extends Controller
         }
         $user->save();
         return redirect()->route('usuarios.index')->with('alert-warning','Usuario editado');
+    }
+
+    public function updatepass(Request $request, $id)
+    {
+        //dd($request);
+        $this->validate($request,['password' => 'required|min:6|confirmed']);
+
+        $user = User::findOrFail($id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect()->route('usuarios.index')->with('alert-success','Contraseña actualizada');
     }
 
     /**

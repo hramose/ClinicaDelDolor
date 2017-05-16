@@ -75,7 +75,9 @@ class ControlerPaciente extends Controller
      */
     public function show($id)
     {
-        //
+        $paciente = Paciente::findOrFail($id);
+        //dd($paciente);
+        return view('paciente.historial',compact('paciente'));
     }
 
     /**

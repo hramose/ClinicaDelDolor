@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Sintoma extends Model
@@ -12,4 +13,15 @@ class Sintoma extends Model
     {
     	return $this->belongsToMany('App\Enfermedad', 'enfermedad_sintomas', 'id', 'id');
     }
+
+    public function diagnosticos()
+    {
+    	return $this->belongsToMany('App\Diagnostico', 'diagnostico_sintoma', 'id', 'id');
+    }
+
+    public function diagnosticosCount()
+    {
+        return DB::table('diagnostico_sintoma')->where('sintoma_id', '=', $this->id)->count();
+    }
+
 }

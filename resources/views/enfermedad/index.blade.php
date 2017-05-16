@@ -19,6 +19,7 @@
 								<th>No.</th>
 								<th>Nombre</th>
 								<th>Descripcion</th>
+								<th>Casos</th>
 								<th>Sintomas</th>
 								<th>Editar</th>
 								<th>Eliminar</th>
@@ -39,6 +40,9 @@
 									</td>
 									<td>
 										<p>{{$enfermedad->descripcion}}</p>
+									</td>
+									<td>
+										{{$enfermedad->diagnosticosCount()}}
 									</td>
 									<td>
 										<div class="sintomas">

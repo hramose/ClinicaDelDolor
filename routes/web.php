@@ -27,4 +27,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('sintoma','ControlerSintoma');
     Route::resource('enfermedad','ControlerEnfermedad');
     Route::resource('turnos','ControlerTurno');
+    Route::resource('diagnostico','ControlerDiagnostico');
+    Route::resource('bayes','ControlerBayes');
+
+    Route::get('updatepassview/{usuario}', 'ControlerUser@updatepassview')->name('updatepassview');
+    Route::patch('updatepass/{usuario}', 'ControlerUser@updatepass')->name('updatepass');
+
+    Route::post('bayes/consulta', 'ControlerBayes@consulta');
 });

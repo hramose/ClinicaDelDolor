@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Enfermedad extends Model
@@ -16,6 +17,16 @@ class Enfermedad extends Model
     public function especialidad()
     {
         return $this->belongsTo('App\Especialidad');
+    }
+
+    public function diagnosticos()
+    {
+    	return $this->belongsToMany('App\Diagnostico', 'diagnostico_enfermedad', 'diagnostico_id', 'enfermedad_id');
+    }
+
+    public function diagnosticosCount()
+    {
+        return DB::table('diagnostico_enfermedad')->where('enfermedad_id', '=', $this->id)->count();
     }
 
 }

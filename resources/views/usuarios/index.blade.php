@@ -22,6 +22,7 @@
 									<th>Exp</th>
 									<th>Correo electronico</th>
 									<th>Tipo</th>
+									<th>Pass.</th>
 									<th>Editar</th>
 									<th>Eliminar</th>
 								</tr>
@@ -53,6 +54,9 @@
 												</div>
 											</div>
 											@endif
+										</td>
+										<td>
+											<a href="{{route('updatepassview',$user->id)}}" class="btn btn-info"><i class="fa fa-key"></i></a>
 										</td>
 										<td>
 											<a href="{{route('usuarios.edit',$user->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>

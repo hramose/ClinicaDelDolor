@@ -36,4 +36,9 @@ class Paciente extends Model
     	return date_diff(date_create($this->attributes['nacimiento']), date_create('now'))->y;
     }
 
+    public function diagnosticos()
+    {
+        return $this->hasMany('App\Diagnostico');
+    }
+
 }

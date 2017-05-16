@@ -55,44 +55,68 @@
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}"><i class="fa fa-vcard-o"></i> Ingresar</a></li>
                             <li><a href="{{ route('register') }}"><i class="fa fa-plus-circle"></i> Registrarse</a></li>
+                            <li><a href="{{ route('bayes.index') }}"><i class="fa fa-vcard-o"></i> Diagnostico</a></li>
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <i class="fa fa-sitemap"></i> Sistema <span class="caret"></span>
-                                </a>
+                            @if ( Auth::user()->tipo_usuario == 'Administrador' )
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <i class="fa fa-sitemap"></i> Sistema <span class="caret"></span>
+                                    </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{route('usuarios.index')}}"><i class="fa fa-users"></i> Usuarios</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('departamento.index')}}"><i class="fa fa-cubes"></i> Departamentos</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('especialidad.index')}}"><i class="fa fa-star"></i> Especialidades</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('turnos.index')}}"><i class="fa fa-calendar-check-o"></i> Turnos</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <i class="fa fa-folder"></i> Servicio medico<span class="caret"></span>
-                                </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{route('usuarios.index')}}"><i class="fa fa-users"></i> Usuarios</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('departamento.index')}}"><i class="fa fa-cubes"></i> Departamentos</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('especialidad.index')}}"><i class="fa fa-star"></i> Especialidades</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('turnos.index')}}"><i class="fa fa-calendar-check-o"></i> Turnos</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <i class="fa fa-folder"></i> Servicio medico<span class="caret"></span>
+                                    </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{route('sintoma.index')}}"><i class="fa fa-eye"></i> Sintomas</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('enfermedad.index')}}"><i class="fa fa-crosshairs"></i> Enfermedades</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('paciente.index')}}"><i class="fa fa-address-book"></i> Pacientes</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{route('sintoma.index')}}"><i class="fa fa-eye"></i> Sintomas</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('enfermedad.index')}}"><i class="fa fa-crosshairs"></i> Enfermedades</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('paciente.index')}}"><i class="fa fa-address-book"></i> Pacientes</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @else
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <i class="fa fa-folder"></i> Servicio medico<span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{route('sintoma.index')}}"><i class="fa fa-eye"></i> Sintomas</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('enfermedad.index')}}"><i class="fa fa-crosshairs"></i> Enfermedades</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('paciente.index')}}"><i class="fa fa-address-book"></i> Pacientes</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('diagnostico.index')}}"><i class="fa fa-medkit"></i> Diagnostico</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endif
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <i class="fa fa-user-circle-o"></i> {{ Auth::user()->name }} <span class="caret"></span>

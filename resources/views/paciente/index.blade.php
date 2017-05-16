@@ -22,6 +22,7 @@
 									<th>Exp</th>
 									<th>Edad</th>
 									<th>Tel-Cel</th>
+									<th>Hist.</th>
 									<th>Editar</th>
 									<th>Eliminar</th>
 								</tr>
@@ -36,6 +37,9 @@
 										<td>{{$paciente->departamento->abreviatura}}</td>
 										<td>{{$paciente->edad()}}</td>
 										<td>{{$paciente->telefonos()}}</td>
+										<td>
+											<a href="{{route('paciente.show',$paciente->id)}}" class="btn btn-success"><i class="fa fa-file-text"></i></a>
+										</td>
 										<td>
 											<a href="{{route('paciente.edit',$paciente->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 										</td>

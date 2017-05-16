@@ -37,7 +37,7 @@
                             <div class="col-md-6">
                                 <select id="especialidad_id" name="especialidad_id" class="form-control">
                                     @foreach($especialidades as $especialidad)
-                                    <option value="{{$especialidad->id}}" {{ (old('especialidad_id') == $especialidad->id) ? 'selected':'' }} >
+                                    <option value="{{$especialidad->id}}" {{ ($enfermedad->especialidad_id == $especialidad->id) ? 'selected':'' }} >
                                     {{$especialidad->nombre}}
                                     </option>
                                     @endforeach

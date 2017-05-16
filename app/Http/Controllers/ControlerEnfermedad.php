@@ -22,6 +22,7 @@ class ControlerEnfermedad extends Controller
     public function index()
     {
         $enfermedades = Enfermedad::all();
+        //$enfermedades = Enfermedad::with('diagnosticosCount')->orderBy('id', 'asc')->get();
         return view('enfermedad.index',['enfermedades' => $enfermedades]);
     }
 
