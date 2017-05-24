@@ -32,6 +32,24 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('categoria_id') ? ' has-error' : '' }}">
+                            <label for="categoria_id" class="col-md-4 control-label">Categoria</label>
+                            <div class="col-md-6">
+                                <select id="categoria_id" name="categoria_id" class="form-control">
+                                    @foreach($categorias as $categoria)
+                                    <option value="{{$categoria->id}}" {{ ($sintoma->categoria_id == $categoria->id) ? 'selected':'' }} >
+                                    {{$categoria->nombre}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('categoria_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('categoria_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="col-md-6" align="left">

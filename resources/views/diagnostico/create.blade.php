@@ -82,6 +82,8 @@
                                 @endif
                             </div>
                         </div>
+                        
+                        <input type="text" name="estado" id="estado" class="form-control" value="Terminado" style="display: none;">
 						
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">

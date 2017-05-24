@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CategoriaSintoma;
 use App\Diagnostico;
 use App\Enfermedad;
 use App\Sintoma;
@@ -12,8 +13,8 @@ class ControlerBayes extends Controller
 {
     public function index()
     {
-        $sintomas = Sintoma::all();
-        return view('bayes.index',['sintomas' => $sintomas]);
+        $categorias = CategoriaSintoma::all();
+        return view('bayes.index',['categorias' => $categorias]);
     }
 
     public function consulta(Request $request)

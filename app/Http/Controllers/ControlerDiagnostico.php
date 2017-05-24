@@ -22,10 +22,20 @@ class ControlerDiagnostico extends Controller
     public function index()
     {
         $user = Auth::user();
-		$diagnosticos = Diagnostico::where('user_id', $user->id)->get();
+        $diagnosticos = Diagnostico::where('user_id', '=', $user->id)
+                                    ->where('estado', '=', 'Terminado')
+                                    ->get();
         return view('diagnostico.index',['diagnosticos' => $diagnosticos]);
     }
 
+    public function pendientes()
+    {
+        $user = Auth::user();
+        $diagnosticos = Diagnostico::where('user_id', '=', $user->id)
+                                    ->where('estado', '=', 'Pendiente')
+                                    ->get();
+        return view('diagnostico.pendientes',['diagnosticos' => $diagnosticos]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -58,6 +68,11 @@ class ControlerDiagnostico extends Controller
         $diagnostico->receta = $request->receta;
         if (isset($request->retorno)) {
         	$diagnostico->retorno = $request->retorno;
+        }
+        if (isset($request->estado)) {
+            $diagnostico->estado = "Terminado";
+        }else{
+            $diagnostico->estado = "Pendiente";
         }
         $diagnostico->save();
         if (isset($request->sintomas)) {
@@ -118,6 +133,7 @@ class ControlerDiagnostico extends Controller
         if (isset($request->retorno)) {
         	$diagnostico->retorno = $request->retorno;
         }
+        $diagnostico->estado = "Terminado";
         $diagnostico->save();
 
         if (isset($request->sintomas)) {

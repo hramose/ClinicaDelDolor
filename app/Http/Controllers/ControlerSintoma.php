@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use App\Sintoma;
+use App\CategoriaSintoma;
 
 class ControlerSintoma extends Controller
 {
@@ -33,7 +32,8 @@ class ControlerSintoma extends Controller
     public function create()
     {
         //create new data
-        return view('sintoma.create');
+        $categorias = CategoriaSintoma::all();
+        return view('sintoma.create',['categorias' => $categorias]);
     }
 
     /**
@@ -49,7 +49,10 @@ class ControlerSintoma extends Controller
         //create new data
         $sintoma = new Sintoma;
         $sintoma->nombre = $request->nombre;
-        $sintoma->descripcion = $request->descripcion;        
+        $sintoma->descripcion = $request->descripcion;
+        if (isset($request->categoria_id)) {
+            $sintoma->categoria_id = $request->categoria_id;
+        }
         $sintoma->save();
         return redirect()->route('sintoma.index')->with('alert-success','Sintoma creado');
     }
@@ -74,8 +77,9 @@ class ControlerSintoma extends Controller
     public function edit($id)
     {
         $sintoma = Sintoma::findOrFail($id);
+        $categorias = CategoriaSintoma::all();
         //return to view edit
-        return view('sintoma.edit',compact('sintoma'));
+        return view('sintoma.edit',compact('sintoma'),['categorias' => $categorias]);
     }
 
     /**
@@ -93,6 +97,9 @@ class ControlerSintoma extends Controller
         $sintoma = Sintoma::findOrFail($id);
         $sintoma->nombre = $request->nombre;
         $sintoma->descripcion = $request->descripcion;
+        if (isset($request->categoria_id)) {
+            $sintoma->categoria_id = $request->categoria_id;
+        }
         $sintoma->save();
         return redirect()->route('sintoma.index')->with('alert-warning','Sintoma editado');
     }

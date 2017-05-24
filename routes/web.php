@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/diagnostico/pendientes', 'ControlerDiagnostico@pendientes')->name('diagnostico.pendientes');
+
 Route::group(['middleware' => ['web']], function () {
     Route::resource('departamento','ControladorDepartamento');
     Route::resource('usuarios','ControlerUser');
@@ -29,9 +31,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('turnos','ControlerTurno');
     Route::resource('diagnostico','ControlerDiagnostico');
     Route::resource('bayes','ControlerBayes');
-
+    Route::resource('categoriaSintoma','ControllerCategoriaSintoma');
     Route::get('updatepassview/{usuario}', 'ControlerUser@updatepassview')->name('updatepassview');
     Route::patch('updatepass/{usuario}', 'ControlerUser@updatepass')->name('updatepass');
-
-    Route::post('bayes/consulta', 'ControlerBayes@consulta');
+    Route::post('bayes/consulta','ControlerBayes@consulta');
 });

@@ -51,7 +51,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                            <li><a href="."><i class="fa fa-home"></i> Inicio</a></li>
+                            <li><a href="/"><i class="fa fa-home"></i> Inicio</a></li>
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}"><i class="fa fa-vcard-o"></i> Ingresar</a></li>
                             <li><a href="{{ route('register') }}"><i class="fa fa-plus-circle"></i> Registrarse</a></li>
@@ -75,6 +75,9 @@
                                         </li>
                                         <li>
                                             <a href="{{route('turnos.index')}}"><i class="fa fa-calendar-check-o"></i> Turnos</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('categoriaSintoma.index')}}"><i class="fa fa-list"></i> Categorias Sintoma</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -112,7 +115,10 @@
                                             <a href="{{route('paciente.index')}}"><i class="fa fa-address-book"></i> Pacientes</a>
                                         </li>
                                         <li>
-                                            <a href="{{route('diagnostico.index')}}"><i class="fa fa-medkit"></i> Diagnostico</a>
+                                            <a href="{{route('diagnostico.pendientes')}}"><i class="fa fa-user-md"></i> Diagnosticos Pendientes</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('diagnostico.index')}}"><i class="fa fa-medkit"></i> Diagnosticos Realizados</a>
                                         </li>
                                     </ul>
                                 </li>

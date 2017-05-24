@@ -93,8 +93,8 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="col-md-6" align="left">
-                                    <button type="submit" class="btn btn-block btn-primary">
-                                        Registrar
+                                    <button type="submit" class="btn btn-block btn-warning">
+                                        Editar
                                     </button>
                                 </div>
                                 <div class="col-md-6" align="right">
