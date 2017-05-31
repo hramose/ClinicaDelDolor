@@ -47,12 +47,26 @@ class ControlerSintoma extends Controller
         //validation of data
         $this->validate($request,['nombre'=>'required','descripcion'=>'required']);
         //create new data
+        //dd($request);
         $sintoma = new Sintoma;
         $sintoma->nombre = $request->nombre;
         $sintoma->descripcion = $request->descripcion;
         if (isset($request->categoria_id)) {
             $sintoma->categoria_id = $request->categoria_id;
         }
+        /*if (isset($request->imagen)) {
+            $file = $request->file('imagen');
+            dd($file);
+            $image_name = time()."-".$file->getClientOriginalName();
+            $imagen = $request->file('imagen');
+            $nombre_imagen = time().$imagen;
+            var_dump($imagen);
+            var_dump(public_path('img'));
+            var_dump($nombre_imagen);
+            dd($imagen);
+            $imagen->move(public_path('img'),$nombre_imagen);
+            $sintoma->imagen = $nombre_imagen;
+        }*/
         $sintoma->save();
         return redirect()->route('sintoma.index')->with('alert-success','Sintoma creado');
     }

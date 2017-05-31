@@ -17,7 +17,7 @@
                             <label for="name" class="col-md-4 control-label">Nombre(s)</label>
 
                             <div class="col-md-6">
-                                <input id="nombre" type="text" class="form-control" name="nombre" value="{{$paciente->nombre}}" required autofocus>
+                                <input id="nombre" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z]/g,'');"  name="nombre" value="{{$paciente->nombre}}" required autofocus>
 
                                 @if ($errors->has('nombre'))
                                     <span class="help-block">
@@ -31,7 +31,7 @@
                             <label for="name" class="col-md-4 control-label">Apellido paterno</label>
 
                             <div class="col-md-6">
-                                <input id="paterno" type="text" class="form-control" name="paterno" value="{{$paciente->paterno}}" required>
+                                <input id="paterno" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z]/g,'');"  name="paterno" value="{{$paciente->paterno}}" required>
 
                                 @if ($errors->has('paterno'))
                                     <span class="help-block">
@@ -45,7 +45,7 @@
                             <label for="name" class="col-md-4 control-label">Apellido materno</label>
 
                             <div class="col-md-6">
-                                <input id="materno" type="text" class="form-control" name="materno" value="{{$paciente->materno}}">
+                                <input id="materno" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z]/g,'');"  name="materno" value="{{$paciente->materno}}">
 
                                 @if ($errors->has('materno'))
                                     <span class="help-block">
@@ -59,7 +59,7 @@
                             <label for="carnet" class="col-md-4 control-label">Carnet de identidad</label>
 
                             <div class="col-md-6">
-                                <input id="carnet" type="text" class="form-control" name="carnet" value="{{$paciente->carnet}}" required>
+                                <input id="carnet" type="text" class="form-control" name="carnet" value="{{$paciente->carnet}}" onkeypress="return isNumber(event)" required>
 
                                 @if ($errors->has('carnet'))
                                     <span class="help-block">
@@ -165,3 +165,17 @@
     </div>
 </div>
 @endsection
+<script type="text/javascript">
+    function isNumber(evt) {
+        if(document.getElementById('carnet').value.length < 6){
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }else{
+            return true;
+        }
+    }
+</script>

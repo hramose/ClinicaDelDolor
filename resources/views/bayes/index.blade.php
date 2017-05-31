@@ -49,11 +49,77 @@
 						<div id="tab_{{$num++}}" class="tab-pane fade">
 							<br/>
 							<div class="col-md-12" align="center">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+										<th style="vertical-align: center;text-align: center;">
+										Enfermedades
+										<br/>
+										Sintomas
+										</th>
+										<?php $aux_enfermedad = array(); ?>
+										@foreach($enfermedades as $enfermedad)
+											<?php
+												$aux_enfermedad[$enfermedad->id] = array();
+												$aux_enfermedad[$enfermedad->id]['condicional'] = array();
+												$aux_enfermedad[$enfermedad->id]['acumulado'] = $enfermedad->diagnosticosCount()/$enfermedades_diagnosticadas;
+												foreach ($sintomas as $sintoma) {
+													$aux_enfermedad[$enfermedad->id]['condicional'][$sintoma->id] = 0;
+												}
+												//var_dump($enfermedad->diagnosticos->count());
+												foreach ($enfermedad->diagnosticos as $diagnostico) {
+													foreach ($diagnostico->sintomas as $sintoma) {
+														$aux_enfermedad[$enfermedad->id]['condicional'][$sintoma->id] += 1;
+													}
+												}
+											?>
+											<th style="vertical-align: center;text-align: center;" colspan="3">
+											{{$enfermedad->nombre}}
+											<br/>
+											{{($enfermedad->diagnosticosCount()/$enfermedades_diagnosticadas)*100}} %
+											</th>
+										@endforeach
+										</tr>
+									</thead>
+									<tbody>
+										@foreach($categorias as $categoria)
+											@foreach($categoria->sintomas as $sintoma)
+											<tr>
+												<td>{{$sintoma->nombre}}</td>
+												@foreach($enfermedades as $enfermedad)
+													<td style="vertical-align: center;text-align: center;">{{$aux_enfermedad[$enfermedad->id]['condicional'][$sintoma->id]}}</td>
+													<td style="vertical-align: center;text-align: center;">{{round(($aux_enfermedad[$enfermedad->id]['condicional'][$sintoma->id]/$enfermedad->diagnosticosCount())*100)/100}}</td>
+													<td style="vertical-align: center;text-align: center;" id="td_{{$enfermedad->id}}_{{$sintoma->id}}">-</td>
+												@endforeach
+											</tr>
+											@endforeach
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+							<br/>
+							<div class="col-md-12" align="center">
 	                            <div class="col-md-4 col-md-offset-4">
 	                                <button type="submit" class="btn btn-block btn-lg btn-success" onclick="consultaBayes()">
 	                                    <strong>Consulta<br/>de Especialidad</strong>
 	                                </button>
 	                            </div>
+								<div id="modalDiagnostico" class="modal fade" role="dialog">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal">&times;</button>
+								        <h4 class="modal-title">Consulta automatizada</h4>
+								      </div>
+								      <div class="modal-body" id="modalDiagnosticoBody">
+								        <p>Some text in the modal.</p>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
 	                        </div>
 						</div>
 					</div>
@@ -83,18 +149,20 @@
         $('.nav-tabs a[href="#tab_0"]').tab('show');
     });
 	function consultaBayes(){
-		if(sintoma_array.length>0){
+		if(sintoma_array.length>2){
 			$.ajax({
 	            type: "POST",
 	            headers: {'X-CSRF-Token':"{{ csrf_token() }}"},
 	            url: 'bayes/consulta',
 	            data: {sintomas: sintoma_array},
 	            success: function( msg ) {
-	            	alert("Solicite ficha para " + msg['nombre']);
+	            	//"td_" + enfermedad['id'] + "_" + sintoma['id']
+	            	$("#modalDiagnostico").modal('show');
+					$("#modalDiagnosticoBody").html("<h2>Solicite ficha para " + msg['especialidad']['nombre'] + "</h2><br/><div align='center'><button class='btn btn-info btn-lg'> Diagnostico presuntivo<br/>" + msg['enfermedad_estimada']['nombre'] + "</button></div>");
 	            }
 	        });
 		}else{
-			alert("Debe seleccionar al menos un sintoma");
+			alert("Debe seleccionar al menos tres sintomas");
 			$('.nav-tabs a[href="#tab_0"]').tab('show');
 		}
 	}

@@ -21,7 +21,7 @@ class Enfermedad extends Model
 
     public function diagnosticos()
     {
-    	return $this->belongsToMany('App\Diagnostico', 'diagnostico_enfermedad', 'diagnostico_id', 'enfermedad_id');
+    	return $this->belongsToMany('App\Diagnostico', 'diagnostico_enfermedad', 'enfermedad_id', 'diagnostico_id');
     }
 
     public function diagnosticosCount()

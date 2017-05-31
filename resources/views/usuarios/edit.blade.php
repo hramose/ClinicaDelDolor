@@ -16,7 +16,7 @@
                             <label for="name" class="col-md-4 control-label">Nombre completo</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" placeholder="Ingresa el nombre aqui" value="{{$user->name}}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" onkeyup="this.value=this.value.replace(/[^A-Za-z]/g,'');"  placeholder="Ingresa el nombre aqui" value="{{$user->name}}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -30,7 +30,7 @@
                             <label for="carnet" class="col-md-4 control-label">Carnet de identidad</label>
 
                             <div class="col-md-6">
-                                <input id="carnet" type="text" class="form-control" name="carnet" placeholder="Ingresa el carnet de identidad aqui" value="{{$user->carnet}}" required>
+                                <input id="carnet" type="text" class="form-control" name="carnet" placeholder="Ingresa el carnet de identidad aqui" onkeypress="return isNumber(event)" value="{{$user->carnet}}" required>
 
                                 @if ($errors->has('carnet'))
                                     <span class="help-block">
@@ -159,5 +159,16 @@
     document.addEventListener('DOMContentLoaded', function() {
         evento_tipo_usuario();
     }, false);
-
+    function isNumber(evt) {
+        if(document.getElementById('carnet').value.length < 6){
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }else{
+            return true;
+        }
+    }
 </script>

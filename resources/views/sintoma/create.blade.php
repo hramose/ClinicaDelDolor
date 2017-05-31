@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+    {!! Html::style('css/dropzone.min.css') !!}
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -10,7 +12,7 @@
                 </div>
 
                 <div class="panel-body">
-					<form class="form-horizontal" role="form" method="POST" action="{{route('sintoma.store')}}">
+					<form class="form-horizontal" role="form" method="POST" action="{{route('sintoma.store')}}" enctype="multipart/form-data">
 						{{ csrf_field() }}
 						
 						<div class="form-group{{ ($errors->has('nombre')) ? $errors->first('nombre') : '' }}">
@@ -47,7 +49,19 @@
                                 @endif
                             </div>
                         </div>
-						
+
+                        <div class="form-group{{ ($errors->has('imagen')) ? $errors->first('imagen') : '' }}">
+                            <label for="imagen" class="col-md-4 control-label">Imagen</label>
+                            <div class="col-md-6">
+                                {!! Form::open([ 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'imagen', 'name' => 'imagen' ]) !!}
+                                <div>
+                                    <h3>Upload Multiple Image By Click On Box</h3>
+                                </div>
+                                {!! Form::close() !!}
+                                {!! $errors->first('imagen','<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="col-md-6" align="left">
@@ -70,3 +84,13 @@
     </div>
 </div>
 @endsection
+
+    {!! Html::script('js/jquery.min.js') !!}
+
+    {!! Html::script('js/dropzone.min.js') !!}
+
+<script type="text/javascript">
+    //Dropzone.autoDiscover = false;
+    //$("#imagen").dropzone({ url: "/" });
+    //var myDropzone = new Dropzone("#imagen", { url: "/"});
+</script>

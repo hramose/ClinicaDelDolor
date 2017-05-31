@@ -79,6 +79,12 @@
                                         <li>
                                             <a href="{{route('categoriaSintoma.index')}}"><i class="fa fa-list"></i> Categorias Sintoma</a>
                                         </li>
+                                        <li>
+                                            <a href="{{route('tipoAnalisis.index')}}"><i class="fa fa-eyedropper"></i> Analisis Medicos</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('parametroMedico.index')}}"><i class="fa fa-th-list"></i> Parametros Medicos</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">

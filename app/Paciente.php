@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Paciente extends Model
@@ -34,6 +35,19 @@ class Paciente extends Model
     public function edad()
     {
     	return date_diff(date_create($this->attributes['nacimiento']), date_create('now'))->y;
+    }
+
+    public function ultima_visita()
+    {
+         $diagnosticos = DB::table('diagnosticos')->where('paciente_id', '=', $this->id)->orderBy('created_at', 'desc')->take(1)->get();
+         return $diagnosticos;
+
+    }
+
+    public function creacion()
+    {
+        $aux_date = explode(" ", $this->attributes['nacimiento']);
+        return $aux_date[0];
     }
 
     public function diagnosticos()

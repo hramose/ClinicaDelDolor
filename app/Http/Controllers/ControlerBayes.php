@@ -13,8 +13,11 @@ class ControlerBayes extends Controller
 {
     public function index()
     {
+        $enfermedades_diagnosticadas = DB::table('diagnostico_enfermedad')->count();
         $categorias = CategoriaSintoma::all();
-        return view('bayes.index',['categorias' => $categorias]);
+        $enfermedades = Enfermedad::all();
+        $sintomas = Sintoma::all();
+        return view('bayes.index',['categorias' => $categorias , 'sintomas'=>$sintomas , 'enfermedades'=>$enfermedades , 'enfermedades_diagnosticadas'=>$enfermedades_diagnosticadas]);
     }
 
     public function consulta(Request $request)
@@ -56,6 +59,6 @@ class ControlerBayes extends Controller
 	    	}
         }
         $enfermedad_estimada = Enfermedad::findOrFail($enfermedad_id_paciente);
-        return $enfermedad_estimada->especialidad;
+        return array('enfermedad_estimada'=>$enfermedad_estimada , 'especialidad'=>$enfermedad_estimada->especialidad);
     }
 }
