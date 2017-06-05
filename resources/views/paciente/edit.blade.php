@@ -17,7 +17,7 @@
                             <label for="name" class="col-md-4 control-label">Nombre(s)</label>
 
                             <div class="col-md-6">
-                                <input id="nombre" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z]/g,'');"  name="nombre" value="{{$paciente->nombre}}" required autofocus>
+                                <input id="nombre" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z ]/g,'');"  name="nombre" value="{{$paciente->nombre}}" required autofocus>
 
                                 @if ($errors->has('nombre'))
                                     <span class="help-block">
@@ -31,7 +31,7 @@
                             <label for="name" class="col-md-4 control-label">Apellido paterno</label>
 
                             <div class="col-md-6">
-                                <input id="paterno" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z]/g,'');"  name="paterno" value="{{$paciente->paterno}}" required>
+                                <input id="paterno" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z ]/g,'');"  name="paterno" value="{{$paciente->paterno}}" required>
 
                                 @if ($errors->has('paterno'))
                                     <span class="help-block">
@@ -45,7 +45,7 @@
                             <label for="name" class="col-md-4 control-label">Apellido materno</label>
 
                             <div class="col-md-6">
-                                <input id="materno" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z]/g,'');"  name="materno" value="{{$paciente->materno}}">
+                                <input id="materno" type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^A-Za-z ]/g,'');"  name="materno" value="{{$paciente->materno}}">
 
                                 @if ($errors->has('materno'))
                                     <span class="help-block">

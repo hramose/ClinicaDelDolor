@@ -11,7 +11,7 @@
 
                 <div class="panel-body">
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{route('sintoma.update',$sintoma->id)}}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{route('sintoma.update',$sintoma->id)}}" enctype="multipart/form-data">
                     
                         <input name="_method" type="hidden" value="PATCH">
 						{{ csrf_field() }}
@@ -50,6 +50,29 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group{{ ($errors->has('imagen')) ? $errors->first('imagen') : '' }}">
+                            <label for="imagen" class="col-md-4 control-label">Imagen</label>
+                            <div class="col-md-6">
+                                <input type="file" id="imagen" name="imagen" class="form-control" placeholder="Selecciona una imagen para este sintoma">
+                                {!! $errors->first('imagen','<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
+                        
+                        @if (isset($sintoma->imagen))
+                        <div class="col-md-6 col-md-offset-5">
+                            <img src="../../{{$sintoma->imagen}}" id="profile-img-tag" width="150px" />
+                            <br/>
+                            <br/>
+                        </div>
+                        @else
+                        <div class="col-md-6 col-md-offset-5">
+                            <img src="" id="profile-img-tag" width="150px" style="display: none;" />
+                            <br/>
+                            <br/>
+                        </div>
+                        @endif
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="col-md-6" align="left">
@@ -72,3 +95,24 @@
     </div>
 </div>
 @endsection
+
+    {!! Html::script('js/jquery.min.js') !!}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        function readURL(input) {
+            $('#profile-img-tag').show();
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    $('#profile-img-tag').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imagen").change(function(){
+            readURL(this);
+        });
+    });
+</script>

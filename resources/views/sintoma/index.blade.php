@@ -21,6 +21,7 @@
 								<th>Descripcion</th>
 								<th>Categoria</th>
 								<th>Casos</th>
+								<th>Imagen</th>
 								<th>Editar</th>
 								<th>Eliminar</th>
 							</tr>
@@ -40,6 +41,11 @@
                                 	@endif
 									</td>
 									<td>{{$sintoma->diagnosticosCount()}}</td>
+									<td>
+									@if ($sintoma->imagen)
+										<img src="{{ $sintoma->imagen }}" width="50px"/>
+                                	@endif
+									</td>
 									<td>
 										<a href="{{route('sintoma.edit',$sintoma->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 									</td>

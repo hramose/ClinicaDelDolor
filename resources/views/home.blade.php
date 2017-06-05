@@ -5,15 +5,27 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-home"></i> Inicio</div>
+                <div class="panel-heading"><i class="fa fa-home"></i> Inicio
+                @if (Auth::guest())
+                    <span class=" pull-right badge">Debes iniciar sesion, antes de continuar</span>
+                @endif
+                </div>
                 <div class="panel-body">
-                    @if (Auth::guest())
-                        <div align="center">
-                            <h1>Debes iniciar sesion, antes de continuar.</h1>
-                        </div>
-                    @endif
                     <row class="col-md-12">
                         <div class="col-md-12">
+                            <div align="center">
+                                <div class="row">
+                                    <div class="col-md-6" align="center">
+                                        {{ Html::image('img/logo2.jpg' , 'Logo', array('class' => 'thumb' , 'width' => '100%')) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <br/>
+                                        <br/>
+                                        <button class="btn btn-info"><font size="6">Nuestro trabajo<br/>es cuidar de tu salud</font></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
                             <p>
                                 La Clínica Cochabamba ofrece a todos los pacientes atención medica las 24 horas del día y contratando a profesionales altamente calificados. Todo ello acompañado del trato humano más cercano tanto al paciente como a sus acompañantes.
                             </p>

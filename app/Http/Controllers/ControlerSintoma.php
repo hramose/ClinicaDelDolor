@@ -54,19 +54,11 @@ class ControlerSintoma extends Controller
         if (isset($request->categoria_id)) {
             $sintoma->categoria_id = $request->categoria_id;
         }
-        /*if (isset($request->imagen)) {
-            $file = $request->file('imagen');
-            dd($file);
-            $image_name = time()."-".$file->getClientOriginalName();
-            $imagen = $request->file('imagen');
-            $nombre_imagen = time().$imagen;
-            var_dump($imagen);
-            var_dump(public_path('img'));
-            var_dump($nombre_imagen);
-            dd($imagen);
-            $imagen->move(public_path('img'),$nombre_imagen);
-            $sintoma->imagen = $nombre_imagen;
-        }*/
+        if($request->hasFile('imagen')){
+            $archivo = $request->file('imagen');
+            $routa_imagen = $archivo->storeAs('img/imagenes_sintomas',date('Ymdhis').'.'.$archivo->guessClientExtension(),'public_local');
+            $sintoma->imagen = $routa_imagen;
+        }
         $sintoma->save();
         return redirect()->route('sintoma.index')->with('alert-success','Sintoma creado');
     }
@@ -113,6 +105,11 @@ class ControlerSintoma extends Controller
         $sintoma->descripcion = $request->descripcion;
         if (isset($request->categoria_id)) {
             $sintoma->categoria_id = $request->categoria_id;
+        }
+        if($request->hasFile('imagen')){
+            $archivo = $request->file('imagen');
+            $routa_imagen = $archivo->storeAs('img/imagenes_sintomas',date('Ymdhis').'.'.$archivo->guessClientExtension(),'public_local');
+            $sintoma->imagen = $routa_imagen;
         }
         $sintoma->save();
         return redirect()->route('sintoma.index')->with('alert-warning','Sintoma editado');

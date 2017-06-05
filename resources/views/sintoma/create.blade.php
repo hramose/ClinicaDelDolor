@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-    {!! Html::style('css/dropzone.min.css') !!}
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -53,13 +51,15 @@
                         <div class="form-group{{ ($errors->has('imagen')) ? $errors->first('imagen') : '' }}">
                             <label for="imagen" class="col-md-4 control-label">Imagen</label>
                             <div class="col-md-6">
-                                {!! Form::open([ 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'imagen', 'name' => 'imagen' ]) !!}
-                                <div>
-                                    <h3>Upload Multiple Image By Click On Box</h3>
-                                </div>
-                                {!! Form::close() !!}
+                                <input type="file" id="imagen" name="imagen" class="form-control" placeholder="Selecciona una imagen para este sintoma">
                                 {!! $errors->first('imagen','<p class="help-block">:message</p>') !!}
                             </div>
+                        </div>
+
+                        <div class="col-md-6 col-md-offset-5">
+                            <img src="" id="profile-img-tag" width="150px" style="display: none;" />
+                            <br/>
+                            <br/>
                         </div>
 
                         <div class="form-group">
@@ -87,10 +87,21 @@
 
     {!! Html::script('js/jquery.min.js') !!}
 
-    {!! Html::script('js/dropzone.min.js') !!}
-
 <script type="text/javascript">
-    //Dropzone.autoDiscover = false;
-    //$("#imagen").dropzone({ url: "/" });
-    //var myDropzone = new Dropzone("#imagen", { url: "/"});
+    $(document).ready(function() {
+        function readURL(input) {
+            $('#profile-img-tag').show();
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    $('#profile-img-tag').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imagen").change(function(){
+            readURL(this);
+        });
+    });
 </script>

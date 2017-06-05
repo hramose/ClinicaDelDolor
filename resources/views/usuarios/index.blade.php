@@ -41,7 +41,11 @@
 											@endif
 										</td>
 										<td>{{$user->carnet}}</td>
-										<td>{{$user->departamento->abreviatura}}</td>
+										<td>
+											@if($user->departamento)
+												{{$user->departamento->abreviatura}}
+											@endif
+										</td>
 										<td>{{$user->email}}</td>
 										<td>
 											{{$user->tipo_usuario}}

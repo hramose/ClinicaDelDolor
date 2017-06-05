@@ -3,6 +3,7 @@
 namespace App;
 
 use DB;
+use Storage;
 use Illuminate\Database\Eloquent\Model;
 
 class Sintoma extends Model

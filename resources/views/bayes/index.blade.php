@@ -16,6 +16,7 @@
 					@foreach($categorias as $categoria)
 						<li><a data-toggle="tab" href="#tab_{{$num++}}">{{$categoria->nombre}}</a></li>
 					@endforeach
+						<li><a data-toggle="tab" href="#tab_{{$num++}}"><i class="fa fa-bars"></i> Probabilidades</a></li>
 						<li><a data-toggle="tab" href="#tab_{{$num++}}"><i class="fa fa-check-circle"></i> Consultar</a></li>
 					</ul>
 
@@ -31,8 +32,21 @@
 								   		<div class="list-group">
 								@endif
 									<a href="#" class="list-group-item" id="{{$sintoma->id}}">
-										<h4 class="list-group-item-heading">{{$sintoma->nombre}}</h4>
-										<p class="list-group-item-text">{{$sintoma->descripcion}}</p>
+										@if(isset($sintoma->imagen))
+										<div class="row">
+											<div class="col-md-8">
+												<h4 class="list-group-item-heading">{{$sintoma->nombre}}</h4>
+												<p class="list-group-item-text">{{$sintoma->descripcion}}</p>
+											</div>
+											<div class="col-md-4" style="display:table-cell; vertical-align: middle;" align="center">
+												<br/>
+												<img src="{{$sintoma->imagen}}" width="100%" />
+											</div>
+										</div>
+										@else
+											<h4 class="list-group-item-heading">{{$sintoma->nombre}}</h4>
+											<p class="list-group-item-text">{{$sintoma->descripcion}}</p>
+										@endif
 									</a>
 									<?php $aux++; ?>
 								@if($aux%5 == 0)
@@ -97,6 +111,9 @@
 									</tbody>
 								</table>
 							</div>
+							<br/>
+						</div>
+						<div id="tab_{{$num++}}" class="tab-pane fade">
 							<br/>
 							<div class="col-md-12" align="center">
 	                            <div class="col-md-4 col-md-offset-4">

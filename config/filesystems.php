@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'public_local' => [
+            'driver' => 'local',
+            'root' => public_path(),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),
